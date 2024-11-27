@@ -1,0 +1,22 @@
+name: Mirror Repository
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Ejecuta cada hora
+  workflow_dispatch:
+
+jobs: 
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout source repository
+      uses: actions/checkout@v4
+      with:
+        repository: returngis/tour-of-heroes-api-dotnet-9
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Push to mirror repository
+      run: |
+        git push --mirror https://github.com/dragonstone-org/mirrored-repo.git
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
