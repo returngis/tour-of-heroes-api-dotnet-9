@@ -44,6 +44,6 @@ jobs:
 
     - name: Push to mirror repository
       run: |
-        git push --mirror ${{ env.REPO_URL }}
+        git push --mirror https://github.com/dragonstone-org/mirrored-tour-of-heroes-dotnet-api.git
       env:
         GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
