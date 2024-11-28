@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 env:
   ORG_NAME: dragonstone-org
-  REPO_URL: https://github.com/dragonstone-org/mirrored-tour-of-heroes-dotnet-api.git
+  REPO_URL: https://github.com/dragonstone-org/mirrored-tour-of-heroes-dotnet-api
 
 jobs: 
   sync:
