@@ -22,8 +22,12 @@ jobs:
         app-id: ${{ secrets.DRAGONSTONE_APP_ID }}
         private-key: ${{ secrets.DRAGONSTONE_PRIVATE_KEY }}
         owner: ${{ env.ORG_NAME }}
-        repositories: |
-          dragonstone-org/mirrored-tour-of-heroes-dotnet-api
+
+    - name: List the repos that I can see
+      run: |
+        gh api "/orgs/$ORG_NAME/repos"
+      env:
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}
         
     - name: Get GitHub App User ID
       id: get-user-id
