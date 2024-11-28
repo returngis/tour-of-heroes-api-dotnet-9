@@ -15,8 +15,15 @@ jobs:
         repository: returngis/tour-of-heroes-api-dotnet-9
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Generate token
+      id: generate-token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ secrets.DRAGONSTONE_APP_ID }}
+        private-key: ${{ secrets.DRAGONSTONE_PRIVATE_KEY }}
+
     - name: Push to mirror repository
       run: |
         git push --mirror https://github.com/dragonstone-org/mirrored-repo.git
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
