@@ -27,7 +27,7 @@ jobs:
       id: get-user-id
       run: |  
         user_id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)
-        "The user id is: $user_id"
+        echo "The user id is: $user_id"
         echo "user-id=$user_id" >> "$GITHUB_OUTPUT"
       env:
         GH_TOKEN: ${{ steps.app-token.outputs.token }}
