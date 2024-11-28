@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: '0 * * * *'  # Ejecuta cada hora
   workflow_dispatch:
+env:
+  ORG_NAME: dragonstone-org
+  REPO_URL: https://github.com/dragonstone-org/mirrored-tour-of-heroes-dotnet-api.git
 
 jobs: 
   sync:
@@ -21,7 +24,7 @@ jobs:
       with:
         app-id: ${{ secrets.DRAGONSTONE_APP_ID }}
         private-key: ${{ secrets.DRAGONSTONE_PRIVATE_KEY }}
-        owner: dragonstone-org
+        owner: ${{ env.ORG_NAME }}
     - name: Get GitHub App User ID
       id: get-user-id
       run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
@@ -34,6 +37,6 @@ jobs:
 
     - name: Push to mirror repository
       run: |
-        git push --mirror https://github.com/dragonstone-org/mirrored-repo.git
+        git push --mirror ${{ env.REPO_URL }}
       env:
         GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
